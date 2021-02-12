@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1e1f1c;
+  height: 100vh;
+  overflow-y: hidden;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.header {
+  padding-bottom: 1rem;
+  box-shadow: 0 8px 6px -9px black;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+}
+
+.player-wrap {
+  flex: .8;
+  background-color: black;
+}
+
+.input-wrap {
+  padding: 0 2rem;
+  width: 80%;
+}
+
+.input-wrap input {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  min-height: 50px;
+  background: transparent;
+  border-bottom: 1px solid white;
+}
+
+
+.playlist-wrap {
+  height: 100%;
+  flex: .2;
+  padding: 1rem;
+}
+
+.playlist-wrap .heading {
+  width: 100%;
+  color: white;
+  font-size: .9rem;
+  padding: .5rem 1rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: .5px solid #727272;
+}
+
+.playlist-wrap .playlist {
+  height: 100%;
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.playlist-wrap .playlist li {
+  display: flex;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.playlist-wrap .playlist li .title {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.playlist-wrap .playlist li button {
+  font-size: 1.2rem;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.playlist-wrap .playlist li button:hover {
+  color: red;
+}
