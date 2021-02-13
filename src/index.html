@@ -5,38 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.gstatic.com">  
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./styles.css">
   <title>Youtube Player</title>
 </head>
 <body>
   <header class="header">
-    <div class="input-wrap">
-      <input placeholder="Add a youtube link (e.g https://www.youtube.com/watch?v=c0oy0vQKEZE)" />
-    </div>     
+    <form id="linkInputForm" class="input-wrap">
+      <input id="linkInput" placeholder="Add a youtube link (e.g https://www.youtube.com/watch?v=c0oy0vQKEZE)" />
+    </form>     
   </header>
 
   <main class="main">
     <div class="player-wrap">
-      <!-- Video -->
+      <div id="player"></div>
     </div>
     <aside class="playlist-wrap">
       <h2 class="heading">Playlist</h2>
 
-      <ul class="playlist">
-        <li>
-          <h3 class="title">Link 1</h3>
-          <button>X</button>
-        </li>
-        <li>
-          <h3 class="title">Link 2</h3>
-          <button>X</button>
-        </li>
-        <li>
-          <h3 class="title">Link 3</h3>
-          <button>X</button>
-        </li>
-      </ul>
+      <ul data-binding="playlist" class="playlist"></ul>
     </aside>
   </main>
+
+  <script src="./js/index.js"></script>
 </body>
 </html>
