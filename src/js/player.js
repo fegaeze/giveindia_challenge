@@ -1,23 +1,6 @@
-window.onYouTubePlayerAPIReady = null;
+import { removeFromPlayList, state } from "./state";
 
-
-const loadVideoPlayer = id => {
-  return () => {
-    // eslint-disable-next-line no-undef
-    new YT.Player('player', {
-      videoId: id,
-      playerVars: { 
-        autoplay: 1,
-        modestbranding: 1,
-        iv_load_policy: 3
-      }, 
-      event: {
-        onReady: () => console.log('ready'),
-        onerror: () => console.log('error')
-      }
-    });
-  }
-}
+let player;
 
 const loadPlayerScript = () => {
   const tag = document.createElement("script");
@@ -25,9 +8,47 @@ const loadPlayerScript = () => {
 
   const firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
+};
 
-export {
-  loadVideoPlayer,
-  loadPlayerScript,
-}
+const createNewPlayer = (id) => {
+  // eslint-disable-next-line no-undef
+  return function newPlayer() {
+    try {
+      // eslint-disable-next-line no-undef
+      player = new YT.Player("player", {
+        videoId: id,
+        playerVars: {
+          autoplay: 1,
+          modestbranding: 1,
+          iv_load_policy: 3,
+        },
+        events: {
+          onReady: (e) => loadPlaylist(e.target),
+          onStateChange: onPlayerStateChange,
+          onerror: onPlayerError,
+        },
+      });
+    } catch (error) {
+      console.log(error, "new player");
+    }
+  };
+};
+
+const loadPlaylist = (player) => {
+  player.loadPlaylist({
+    playlist: state.playlist.map(({ id }) => id),
+  });
+};
+
+const onPlayerStateChange = (evt) => {
+  if (evt.data === 0) {
+    removeFromPlayList(state.playlist[0]["id"]);
+    loadPlaylist(evt.target);
+  }
+};
+
+const onPlayerError = () => {
+  console.log("error");
+};
+
+export { player, loadPlaylist, createNewPlayer, loadPlayerScript };

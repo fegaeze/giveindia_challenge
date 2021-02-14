@@ -1,42 +1,47 @@
-import { state } from './state';
-import { loadVideoPlayer } from './player';
-import { getVideoId, verifyUrl } from './url';
+import { getVideoDetails, getVideoId, verifyUrl } from "./url";
+import { addToPlayList, removeFromPlayList, state } from "./state";
 
+let input = document.querySelector("#linkInput");
 
-const input = document.querySelector('#linkInput');
-
-
-const render = property => {
-  document.querySelector(`[data-binding="${property}"]`).innerHTML = state[property].map((_, i) => `
-    <li>
-      <h3 class="title">Link ${i + 1}</h3>
-      <button>X</button>
+const render = (property) => {
+  document.querySelector(`[data-binding="${property}"]`).innerHTML = state[
+    property
+  ]
+    .map(
+      ({ id, title }) => `
+    <li data-key="${id}">
+      <h3 class="title">${title}</h3>
+      <button class="deletebtn">X</button>
     </li>
-  `).join('');
-}
+  `
+    )
+    .join("");
+};
 
-const handleVideoSubmit = evt => {
+const handleVideoSubmit = async (evt) => {
   evt.preventDefault();
+  const url = input.value;
 
-  if(verifyUrl(input.value)) {
-    state.playlist = [...state.playlist, input.value];
+  if (!verifyUrl(url)) {
+    input.value = "";
+    return;
   }
 
-  input.value = '';
-}
+  try {
+    const { title } = await getVideoDetails(url);
+    addToPlayList({ url, title, id: getVideoId(url) });
+  } catch (error) {
+    console.log(error, "handleSubmit");
+  } finally {
+    input.value = "";
+  }
+};
 
-const handleVideoDelete = () => {
-  // state.playlist = state.playlist.filter(item => url !== item);
-}
+const handleVideoDelete = (evt) => {
+  if (evt.target.matches(".deletebtn")) {
+    const id = evt.target.parentNode.dataset.key;
+    removeFromPlayList(id);
+  }
+};
 
-const handleUiUpdates = list => {
-  // const id = getVideoId(list[0])
-  // window.onYouTubePlayerAPIReady = loadVideoPlayer(id)
-}
-
-export { 
-  render, 
-  handleVideoSubmit, 
-  handleVideoDelete, 
-  handleUiUpdates 
-}
+export { render, handleVideoSubmit, handleVideoDelete };

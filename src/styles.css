@@ -82,6 +82,10 @@ body {
 .playlist-wrap .playlist li .title {
   font-size: 1rem;
   color: white;
+  text-overflow: ellipsis;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .playlist-wrap .playlist li button {
