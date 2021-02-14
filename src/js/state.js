@@ -32,7 +32,7 @@ export const removeFromPlayList = (id) => {
 
 const handleStateChanges = (prevState, currentState) => {
   if (player && currentState.length === 0) {
-    player.stopVideo();
+    player.loadPlaylist({ playlist: []})
   } else if (player && currentState.length === 1) {
     loadPlaylist(player);
   } else if (prevState.length > currentState.length) {

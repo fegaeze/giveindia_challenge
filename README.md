@@ -14,3 +14,11 @@ Sample UI below. The app doesn't need to have fancy design. We are looking for f
 - The youtube link must be validated by the app for proper url format before adding to the queue.
 - The application should allow user to add a youtube link to the playlist and start playing from the playlist first in first out.
 - Sync different versions of the application. If the application is open across two tabs, both must be in sync for all activities. For e.g adding/removing/forwarding a video on any one, should update both of them.
+
+
+### Todo
+- Refactor
+- When playlist finishes, set player to "off"
+- User should be able to reorder the list items
+- Handle Errors
+- Beg Victor to do a code review
